@@ -9,8 +9,9 @@
 | API Framework | NestJS | 11.x | Cau truc module ro rang, de mo rong auth, scheduler, queue |
 | Worker Runtime | Node.js + TSX | 22 LTS + 4.x | Chay worker nhe, khoi dong nhanh |
 | Shared Packages | pnpm workspace packages | workspace | Tai su dung types va utility noi bo |
-| Database | PostgreSQL | TBD | Du kien luu page, post, event, alert rule |
-| Cache/Queue | Redis | TBD | Danh cho queue, lock, debounce jobs |
+| Database | PostgreSQL | 16 | Luu `sources`, `jobs`, `sheet_registry` qua Prisma |
+| ORM | Prisma | 6.x | Sinh client, schema va seed local |
+| Cache/Queue | Redis | 7 | Danh cho queue, lock, debounce jobs |
 | Hosting | Vercel + container runtime | TBD | Web tach rieng, API/worker co the deploy container |
 | CI/CD | GitHub Actions | TBD | Build, lint, smoke test theo monorepo |
 
@@ -21,6 +22,7 @@
 - NestJS hop voi bai toan API co nhieu module nhu ingestion, auth, scheduling, alerts.
 - Worker tach rieng de tranh nhot tac vu polling/cron vao web hay api process.
 - pnpm workspace giu dependency gon va de scale theo monorepo.
+- Prisma giup schema database ro rang, seed local nhanh va giam chi phi viet SQL thu cong giai doan dau.
 
 ## Trade-offs
 

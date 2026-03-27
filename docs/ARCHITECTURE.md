@@ -13,7 +13,7 @@ He thong duoc scaffold theo monorepo 3 lop: `web` cho dashboard/operator UI, `ap
 | `apps/worker` | Polling page, xu ly event, dedupe, push alert | Node.js + TSX |
 | `packages/shared-types` | DTO, enum, type dung chung | TypeScript |
 | `packages/shared-utils` | Utility format/logging/pure helpers | TypeScript |
-| `prisma/` | Schema va migration database | Prisma |
+| `prisma/` | Schema, seed va migration database | Prisma |
 
 ## Data Flow
 
@@ -22,6 +22,12 @@ He thong duoc scaffold theo monorepo 3 lop: `web` cho dashboard/operator UI, `ap
 3. `api` validate, ghi database va day job sang worker/queue.
 4. `worker` xu ly event tracking, dedupe va phat alert.
 5. Ket qua duoc luu lai de `web` doc ra dashboard va lich su.
+
+## Database Model
+
+- `sources`: cau hinh fanpage can theo doi, gom slug, ten page, co bat realtime hay khong va dich Telegram dich.
+- `jobs`: lich su job quet/realtime/report theo tung source.
+- `sheet_registry`: danh ba Google Sheet da xuat theo ngay cho tung source.
 
 ## API Boundaries
 

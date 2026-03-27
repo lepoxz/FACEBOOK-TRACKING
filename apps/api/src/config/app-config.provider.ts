@@ -1,4 +1,5 @@
 import { Provider } from "@nestjs/common";
+import { loadEnv } from "./load-env";
 
 export const APP_CONFIG = Symbol("APP_CONFIG");
 
@@ -28,6 +29,8 @@ function readPackageVersion() {
 }
 
 export function createAppConfig(): AppConfig {
+  loadEnv();
+
   return {
     apiPort: readPositiveInteger(process.env.API_PORT, 3001),
     appEnv: process.env.APP_ENV?.trim() || "development",

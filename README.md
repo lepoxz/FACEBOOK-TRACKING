@@ -32,6 +32,9 @@ Monorepo khoi tao cho web app theo doi hoat dong cong khai cua fanpage Facebook 
 ```bash
 pnpm install
 cp .env.example .env
+pnpm db:start
+pnpm db:push
+pnpm db:seed
 pnpm dev
 ```
 
@@ -58,8 +61,9 @@ PORT=3101 pnpm dev:web
 ## API scope hien tai
 
 - `GET /health`: smoke endpoint tra ve runtime status, env, version va so tracked page seed.
-- `GET /v1/pages`: danh sach page dang duoc theo doi o dang seed/in-memory de unblock dashboard va worker.
-- Env co su phan tach `APP_ENV`, `API_PORT`, `PAGE_POLL_INTERVAL_MINUTES` de chuan hoa local config som.
+- `GET /v1/pages`: danh sach `sources` doc truc tiep tu PostgreSQL, kem job va Google Sheet moi nhat.
+- Env co su phan tach `APP_ENV`, `API_PORT`, `PAGE_POLL_INTERVAL_MINUTES`, `DATABASE_URL` de chuan hoa local config som.
+- Database local mac dinh dung PostgreSQL trong `infra/docker/docker-compose.yml`.
 
 ## Tai lieu
 

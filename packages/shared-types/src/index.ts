@@ -1,22 +1,39 @@
-export type TrackingMode = "public_activity";
+export type JobType = "REALTIME_SCAN" | "SCAN_LAST10" | "DAILY_REPORT";
 
-export type TrackedPageStatus = "active" | "paused" | "draft";
+export type JobStatus = "PENDING" | "RUNNING" | "COMPLETED" | "FAILED";
 
-export interface TrackedPage {
-  id: string;
-  pageId: string;
+export interface SourceJob {
+  id: number;
+  type: JobType;
+  status: JobStatus;
+  startedAt: string | null;
+  finishedAt: string | null;
+  errorMessage: string | null;
+}
+
+export interface SourceSheetRegistry {
+  id: number;
+  date: string;
+  fileName: string;
+  googleSheetId: string;
+  googleSheetUrl: string;
+}
+
+export interface SourceItem {
+  id: number;
+  pageSlug: string;
   pageName: string;
-  pageUrl: string;
-  mode: TrackingMode;
-  status: TrackedPageStatus;
-  checkIntervalMinutes: number;
-  lastCheckedAt: string | null;
+  enabled: boolean;
+  realtimeScanEnabled: boolean;
+  telegramTarget: string | null;
   createdAt: string;
-  tags: string[];
+  updatedAt: string;
+  latestJob: SourceJob | null;
+  latestSheet: SourceSheetRegistry | null;
 }
 
 export interface TrackedPagesResponse {
-  items: TrackedPage[];
+  items: SourceItem[];
   total: number;
 }
 
@@ -29,16 +46,3 @@ export interface HealthResponse {
   trackedPagesConfigured: number;
   timestamp: string;
 }
-
-export const defaultTrackedPage: TrackedPage = {
-  id: "tracked-page-demo-001",
-  pageId: "page-demo-001",
-  pageName: "Doi Thu Mau",
-  pageUrl: "https://www.facebook.com/doithumau",
-  mode: "public_activity",
-  status: "active",
-  checkIntervalMinutes: 15,
-  lastCheckedAt: null,
-  createdAt: "2026-03-27T00:00:00.000Z",
-  tags: ["competitor", "seed"]
-};

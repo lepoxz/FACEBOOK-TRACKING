@@ -7,70 +7,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum TrackingMode {
-  public_activity
+model Source {
+  id                  Int             @id @default(autoincrement())
+  pageSlug            String          @unique @map("page_slug")
+  pageName            String          @map("page_name")
+  enabled             Boolean         @default(true)
+  realtimeScanEnabled Boolean         @default(false) @map("realtime_scan_enabled")
+  telegramTarget      String?         @map("telegram_target")
+  createdAt           DateTime        @default(now()) @map("created_at")
+  updatedAt           DateTime        @updatedAt @map("updated_at")
+  jobs                Job[]
+  sheetRegistries     SheetRegistry[]
+
+  @@map("sources")
 }
 
-enum TrackedPageStatus {
-  draft
-  active
-  paused
+model Job {
+  id           Int       @id @default(autoincrement())
+  sourceId     Int       @map("source_id")
+  type         JobType
+  status       JobStatus @default(PENDING)
+  startedAt    DateTime? @map("started_at")
+  finishedAt   DateTime? @map("finished_at")
+  errorMessage String?   @map("error_message")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  source       Source    @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@index([sourceId, status])
+  @@map("jobs")
 }
 
-enum TrackingRunStatus {
-  queued
-  running
-  succeeded
-  failed
+model SheetRegistry {
+  id             Int      @id @default(autoincrement())
+  sourceId       Int      @map("source_id")
+  date           String
+  fileName       String   @map("file_name")
+  googleSheetId  String   @map("google_sheet_id")
+  googleSheetUrl String   @map("google_sheet_url")
+  createdAt      DateTime @default(now()) @map("created_at")
+  source         Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@unique([sourceId, date])
+  @@map("sheet_registry")
 }
 
-enum SnapshotSource {
-  crawl
-  manual_import
+enum JobType {
+  REALTIME_SCAN
+  SCAN_LAST10
+  DAILY_REPORT
 }
 
-model TrackedPage {
-  id                   String            @id @default(cuid())
-  pageId               String            @unique
-  pageName             String
-  pageUrl              String
-  mode                 TrackingMode      @default(public_activity)
-  status               TrackedPageStatus @default(draft)
-  checkIntervalMinutes Int               @default(15)
-  notes                String?
-  lastCheckedAt        DateTime?
-  createdAt            DateTime          @default(now())
-  updatedAt            DateTime          @updatedAt
-  snapshots            PageSnapshot[]
-  trackingRuns         TrackingRun[]
-}
-
-model TrackingRun {
-  id            String            @id @default(cuid())
-  trackedPageId String
-  status        TrackingRunStatus @default(queued)
-  startedAt     DateTime?
-  finishedAt    DateTime?
-  errorMessage  String?
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
-  trackedPage   TrackedPage       @relation(fields: [trackedPageId], references: [id], onDelete: Cascade)
-
-  @@index([trackedPageId, status])
-}
-
-model PageSnapshot {
-  id             String         @id @default(cuid())
-  trackedPageId  String
-  source         SnapshotSource @default(crawl)
-  observedAt     DateTime
-  followerCount  Int?
-  likeCount      Int?
-  talkingAbout   Int?
-  postCount24h   Int?
-  rawPayload     Json?
-  createdAt      DateTime       @default(now())
-  trackedPage    TrackedPage    @relation(fields: [trackedPageId], references: [id], onDelete: Cascade)
-
-  @@index([trackedPageId, observedAt])
+enum JobStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
 }

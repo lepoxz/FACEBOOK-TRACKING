@@ -9,7 +9,7 @@ export class TrackedPagesController {
   ) {}
 
   @Get()
-  getTrackedPages() {
+  async getTrackedPages() {
     return this.trackedPagesService.list();
   }
 }

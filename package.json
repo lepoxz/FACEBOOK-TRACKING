@@ -8,11 +8,22 @@
     "dev:web": "pnpm --filter web dev",
     "dev:api": "pnpm --filter api dev",
     "dev:worker": "pnpm --filter worker dev",
+    "db:start": "docker compose -f infra/docker/docker-compose.yml up -d postgres",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "node prisma/seed.mjs",
     "build": "pnpm -r --if-present build",
     "lint": "pnpm -r --if-present lint"
   },
+  "prisma": {
+    "seed": "node prisma/seed.mjs"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.6.0"
+  },
   "devDependencies": {
     "concurrently": "^9.2.1",
+    "prisma": "^6.6.0",
     "typescript": "^5.9.2"
   }
 }

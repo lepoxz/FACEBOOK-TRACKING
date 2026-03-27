@@ -12,14 +12,14 @@ export class HealthService {
     private readonly trackedPagesService: TrackedPagesService
   ) {}
 
-  getHealth(): HealthResponse {
+  async getHealth(): Promise<HealthResponse> {
     return {
       status: "ok",
       service: formatServiceLabel("facebook tracking api"),
       environment: this.config.appEnv,
       version: this.config.appVersion,
       uptimeSeconds: Math.round(process.uptime()),
-      trackedPagesConfigured: this.trackedPagesService.count(),
+      trackedPagesConfigured: await this.trackedPagesService.count(),
       timestamp: new Date().toISOString()
     };
   }
