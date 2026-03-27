@@ -43,6 +43,12 @@ pnpm dev:api
 pnpm dev:worker
 ```
 
+Neu can chay Web tren cong khac cho preview/local adapter, co the truyen bien `PORT`:
+
+```bash
+PORT=3101 pnpm dev:web
+```
+
 ## Local URLs
 
 - Web: `http://localhost:3000`
