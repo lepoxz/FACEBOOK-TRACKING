@@ -49,6 +49,7 @@ a {
 .sidebar-stack {
   display: grid;
   gap: var(--space-6);
+  min-width: 0;
 }
 
 .sidebar-kicker,
@@ -101,10 +102,8 @@ h3 {
 }
 
 .nav-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
+  display: grid;
+  gap: var(--space-1);
   padding: 12px 14px;
   border-radius: var(--radius-md);
   color: rgba(248, 250, 252, 0.78);
@@ -114,7 +113,7 @@ h3 {
 
 .nav-item span,
 .nav-item strong {
-  white-space: nowrap;
+  min-width: 0;
 }
 
 .nav-item strong {
@@ -168,6 +167,7 @@ h3 {
   padding: var(--space-6);
   max-width: 1440px;
   width: 100%;
+  min-width: 0;
 }
 
 .topbar {
@@ -585,7 +585,6 @@ tbody tr:hover {
     gap: var(--space-3);
   }
 
-  .nav-item,
   .lead-meta {
     align-items: flex-start;
     flex-direction: column;
