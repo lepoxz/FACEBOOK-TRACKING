@@ -8,6 +8,7 @@ import { TrackedPagesService } from "./tracked-pages.service";
 export class HealthService {
   constructor(
     @Inject(APP_CONFIG) private readonly config: AppConfig,
+    @Inject(TrackedPagesService)
     private readonly trackedPagesService: TrackedPagesService
   ) {}
 

@@ -1,9 +1,12 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Inject } from "@nestjs/common";
 import { TrackedPagesService } from "./tracked-pages.service";
 
 @Controller("v1/pages")
 export class TrackedPagesController {
-  constructor(private readonly trackedPagesService: TrackedPagesService) {}
+  constructor(
+    @Inject(TrackedPagesService)
+    private readonly trackedPagesService: TrackedPagesService
+  ) {}
 
   @Get()
   getTrackedPages() {

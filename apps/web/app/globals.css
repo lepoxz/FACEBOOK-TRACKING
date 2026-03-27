@@ -206,6 +206,11 @@ h2 {
   color: var(--text-secondary);
 }
 
+.search-box:focus-within {
+  border-color: rgba(2, 132, 199, 0.32);
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+}
+
 .search-box input {
   width: 100%;
   border: 0;
@@ -219,12 +224,20 @@ h2 {
 }
 
 .search-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
   color: var(--neutral-400);
+}
+
+.search-icon svg {
+  width: 18px;
+  height: 18px;
 }
 
 .primary-button,
 .secondary-button,
-.ghost-button {
+.ghost-button,
+.danger-button {
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -235,10 +248,20 @@ h2 {
 .primary-button:hover,
 .secondary-button:hover,
 .ghost-button:hover,
+.danger-button:hover,
 .primary-button:focus-visible,
 .secondary-button:focus-visible,
-.ghost-button:focus-visible {
+.ghost-button:focus-visible,
+.danger-button:focus-visible {
   transform: translateY(-1px);
+}
+
+.primary-button:focus-visible,
+.secondary-button:focus-visible,
+.ghost-button:focus-visible,
+.danger-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.14);
 }
 
 .primary-button {
@@ -257,6 +280,12 @@ h2 {
   background: transparent;
   color: var(--info-500);
   padding-left: 0;
+}
+
+.danger-button {
+  border: 1px solid var(--danger-500);
+  background: var(--danger-500);
+  color: var(--neutral-0);
 }
 
 .status-band {

@@ -1,3 +1,13 @@
+import {
+  AlertCard,
+  DashboardButton,
+  FilterChip,
+  PageTableRow,
+  SearchInput,
+  StatCard,
+  TimelineItem
+} from "../components/dashboard-foundation";
+
 type PageStatus = "tracking" | "warning" | "critical" | "paused";
 type AlertLevel = "critical" | "warning" | "info";
 
@@ -117,28 +127,28 @@ const hotLeads = [
 
 const timelineItems = [
   {
-    rail: "teal",
+    rail: "teal" as const,
     page: "Miu Beauty Official",
     event: "Đăng 2 video review serum mới",
     time: "09:12",
     delta: "+42% comment"
   },
   {
-    rail: "amber",
+    rail: "amber" as const,
     page: "Nha Xinh Decor",
     event: "Bật livestream flash sale 45 phút",
     time: "08:40",
     delta: "+1.8x viewer"
   },
   {
-    rail: "red",
+    rail: "red" as const,
     page: "Pet House Viet",
     event: "Khoảng trống dữ liệu vượt ngưỡng cảnh báo",
     time: "08:26",
     delta: "17 phút mất đồng bộ"
   },
   {
-    rail: "teal",
+    rail: "teal" as const,
     page: "Fit Mom Daily",
     event: "Thêm post album trước khung giờ bán hàng",
     time: "07:55",
@@ -166,32 +176,6 @@ const alerts = [
     action: "Kiểm tra thiết lập"
   }
 ];
-
-const statusTone = {
-  tracking: "is-tracking",
-  warning: "is-warning",
-  critical: "is-critical",
-  paused: "is-paused"
-} as const;
-
-const alertTone = {
-  critical: "critical",
-  warning: "warning",
-  info: "info"
-} as const;
-
-const statusLabel: Record<PageStatus, string> = {
-  tracking: "Đang theo dõi",
-  warning: "Cần chú ý",
-  critical: "Nghiêm trọng",
-  paused: "Tạm dừng"
-};
-
-const alertLabel: Record<AlertLevel, string> = {
-  critical: "Nghiêm trọng",
-  warning: "Cảnh báo",
-  info: "Thông tin"
-};
 
 export default function HomePage() {
   return (
@@ -256,45 +240,31 @@ export default function HomePage() {
           </div>
 
           <div className="topbar-actions">
-            <label className="search-box" htmlFor="page-search">
-              <span className="search-icon" aria-hidden="true">
-                ?
-              </span>
-              <input
-                defaultValue=""
-                id="page-search"
-                name="page-search"
-                placeholder="Tìm trang, nguồn, cảnh báo..."
-                type="search"
-              />
-            </label>
-            <button className="secondary-button" type="button">
-              24 giờ qua
-            </button>
-            <button className="primary-button" type="button">
-              Thêm trang theo dõi
-            </button>
+            <SearchInput
+              id="page-search"
+              name="page-search"
+              placeholder="Tìm trang, nguồn, cảnh báo..."
+            />
+            <DashboardButton variant="secondary">24 giờ qua</DashboardButton>
+            <DashboardButton>Thêm trang theo dõi</DashboardButton>
           </div>
         </header>
 
         <section className="status-band" aria-label="Trạng thái vận hành">
           {summaryCards.map((item) => (
-            <article className="status-card" key={item.label}>
-              <span className="stat-label">{item.label}</span>
-              <strong>{item.value}</strong>
-              <p>{item.note}</p>
-            </article>
+            <StatCard compact key={item.label} label={item.label} note={item.note} value={item.value} />
           ))}
         </section>
 
         <section className="stats-grid" aria-label="Thống kê tổng quan">
           {primaryMetrics.map((metric) => (
-            <article className="stat-card" key={metric.label}>
-              <span className="stat-label">{metric.label}</span>
-              <strong className="stat-value">{metric.value}</strong>
-              <span className="stat-delta">{metric.delta}</span>
-              <p className="stat-note">{metric.note}</p>
-            </article>
+            <StatCard
+              delta={metric.delta}
+              key={metric.label}
+              label={metric.label}
+              note={metric.note}
+              value={metric.value}
+            />
           ))}
         </section>
 
@@ -306,10 +276,10 @@ export default function HomePage() {
                 <h3>Trang nóng cần xem ngay</h3>
               </div>
               <div className="chip-row">
-                <span className="chip chip-active">Tất cả</span>
-                <span className="chip">Có cảnh báo</span>
-                <span className="chip">Đang livestream</span>
-                <span className="chip">Ít hoạt động</span>
+                <FilterChip active label="Tất cả" />
+                <FilterChip label="Có cảnh báo" />
+                <FilterChip label="Đang livestream" />
+                <FilterChip label="Ít hoạt động" />
               </div>
             </div>
 
@@ -318,32 +288,16 @@ export default function HomePage() {
                 <thead>
                   <tr>
                     <th>Page</th>
-                    <th>Trang thai</th>
-                    <th>Bai moi 24h</th>
-                    <th>Tuong tac uoc tinh</th>
-                    <th>Lan cap nhat cuoi</th>
-                    <th>Alert gan nhat</th>
+                    <th>Trạng thái</th>
+                    <th>Bài mới 24h</th>
+                    <th>Tương tác ước tính</th>
+                    <th>Lần cập nhật cuối</th>
+                    <th>Alert gần nhất</th>
                   </tr>
                 </thead>
                 <tbody>
                   {hotPages.map((page) => (
-                    <tr key={page.name}>
-                      <td>
-                        <div className="page-cell">
-                          <strong>{page.name}</strong>
-                          <span>{page.category}</span>
-                        </div>
-                      </td>
-                      <td>
-                        <span className={`status-pill ${statusTone[page.status]}`}>
-                          {statusLabel[page.status]}
-                        </span>
-                      </td>
-                      <td>{page.posts24h}</td>
-                      <td>{page.engagement}</td>
-                      <td className="mono-copy">{page.updatedAt}</td>
-                      <td>{page.alert}</td>
-                    </tr>
+                    <PageTableRow key={page.name} {...page} />
                   ))}
                 </tbody>
               </table>
@@ -367,7 +321,7 @@ export default function HomePage() {
                   </div>
                   <div className="lead-meta">
                     <span className="mono-label">{lead.owner}</span>
-                    <span className="chip chip-active">{lead.priority}</span>
+                    <FilterChip active label={lead.priority} />
                   </div>
                 </article>
               ))}
@@ -380,24 +334,12 @@ export default function HomePage() {
                 <p className="panel-kicker">Dòng sự kiện</p>
                 <h3>Biến động gần đây</h3>
               </div>
-              <button className="ghost-button" type="button">
-                Xem log chi tiết
-              </button>
+              <DashboardButton variant="ghost">Xem log chi tiết</DashboardButton>
             </div>
 
             <div className="timeline-list">
               {timelineItems.map((item) => (
-                <article className="timeline-item" key={`${item.page}-${item.time}`}>
-                  <span className={`timeline-rail ${item.rail}`} aria-hidden="true" />
-                  <div className="timeline-copy">
-                    <div className="timeline-head">
-                      <strong>{item.page}</strong>
-                      <span className="mono-label">{item.time}</span>
-                    </div>
-                    <p>{item.event}</p>
-                  </div>
-                  <span className="timeline-delta">{item.delta}</span>
-                </article>
+                <TimelineItem key={`${item.page}-${item.time}`} {...item} />
               ))}
             </div>
           </article>
@@ -412,14 +354,7 @@ export default function HomePage() {
 
             <div className="alert-list">
               {alerts.map((alert) => (
-                <article className={`alert-card ${alertTone[alert.level]}`} key={alert.title}>
-                  <span className="mono-label">{alertLabel[alert.level]}</span>
-                  <strong>{alert.title}</strong>
-                  <p>{alert.reason}</p>
-                  <button className="ghost-button" type="button">
-                    {alert.action}
-                  </button>
-                </article>
+                <AlertCard key={alert.title} {...alert} />
               ))}
             </div>
           </article>
