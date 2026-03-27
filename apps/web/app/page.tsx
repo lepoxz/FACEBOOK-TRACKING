@@ -1,6 +1,7 @@
-type PageStatus = "tracking" | "warning" | "critical";
+type PageStatus = "tracking" | "warning" | "critical" | "paused";
+type AlertLevel = "critical" | "warning" | "info";
 
-const metrics = [
+const primaryMetrics = [
   {
     label: "So page dang theo doi",
     value: "24",
@@ -27,6 +28,24 @@ const metrics = [
   }
 ];
 
+const summaryCards = [
+  {
+    label: "Do phu thu thap",
+    value: "80%",
+    note: "24 / 30 page da dong bo du du lieu"
+  },
+  {
+    label: "Nguon can xu ly",
+    value: "02",
+    note: "1 crawl cham, 1 token can gia han"
+  },
+  {
+    label: "Khung gio nong",
+    value: "10:00",
+    note: "My pham va noi that dang tang toc"
+  }
+];
+
 const hotPages = [
   {
     name: "Miu Beauty Official",
@@ -34,6 +53,7 @@ const hotPages = [
     status: "tracking" as PageStatus,
     posts24h: 12,
     engagement: "154K",
+    updatedAt: "3 phut truoc",
     alert: "Tang reach 68%"
   },
   {
@@ -42,6 +62,7 @@ const hotPages = [
     status: "warning" as PageStatus,
     posts24h: 4,
     engagement: "38K",
+    updatedAt: "8 phut truoc",
     alert: "Livestream bat ngo luc 08:40"
   },
   {
@@ -50,6 +71,7 @@ const hotPages = [
     status: "tracking" as PageStatus,
     posts24h: 7,
     engagement: "91K",
+    updatedAt: "12 phut truoc",
     alert: "3 reel moi trong 6 gio"
   },
   {
@@ -58,7 +80,38 @@ const hotPages = [
     status: "critical" as PageStatus,
     posts24h: 2,
     engagement: "12K",
+    updatedAt: "17 phut truoc",
     alert: "Nguon crawl cham 17 phut"
+  },
+  {
+    name: "Cafe Nha Pho",
+    category: "F&B",
+    status: "paused" as PageStatus,
+    posts24h: 1,
+    engagement: "7K",
+    updatedAt: "41 phut truoc",
+    alert: "Dang doi access token moi"
+  }
+];
+
+const hotLeads = [
+  {
+    page: "Miu Beauty Official",
+    reason: "2 video moi dang vuot benchmark 7 ngay",
+    owner: "Ads team",
+    priority: "Theo doi sat"
+  },
+  {
+    page: "Nha Xinh Decor",
+    reason: "Livestream dot xuat trong gio hanh chinh",
+    owner: "Content ops",
+    priority: "Cap nhat script sales"
+  },
+  {
+    page: "Fit Mom Daily",
+    reason: "Tan suat reel tang truoc khung 11:00",
+    owner: "Research",
+    priority: "Bo sung keyword watch"
   }
 ];
 
@@ -95,19 +148,19 @@ const timelineItems = [
 
 const alerts = [
   {
-    level: "critical",
+    level: "critical" as AlertLevel,
     title: "Pet House Viet can kiem tra pipeline crawl",
     reason: "Khong co event moi du page dang co traffic cao.",
     action: "Mo runbook ingestion"
   },
   {
-    level: "warning",
+    level: "warning" as AlertLevel,
     title: "Nha Xinh Decor dang livestream bat thuong",
     reason: "Bat dau som hon lich thong thuong 90 phut.",
     action: "Gan the theo doi sat"
   },
   {
-    level: "info",
+    level: "info" as AlertLevel,
     title: "Da them 3 page moi vao watchlist trong ca sang",
     reason: "Nguon tu team research da xac nhan public.",
     action: "Kiem tra thiet lap"
@@ -117,49 +170,89 @@ const alerts = [
 const statusTone = {
   tracking: "is-tracking",
   warning: "is-warning",
-  critical: "is-critical"
+  critical: "is-critical",
+  paused: "is-paused"
+} as const;
+
+const alertTone = {
+  critical: "critical",
+  warning: "warning",
+  info: "info"
 } as const;
 
 export default function HomePage() {
   return (
     <main className="dashboard-shell">
       <aside className="sidebar">
-        <div>
-          <p className="sidebar-kicker">FACEBOOK TRACKING</p>
-          <h1 className="sidebar-title">Tinh bao van hanh fanpage doi thu</h1>
+        <div className="sidebar-main">
+          <div>
+            <p className="sidebar-kicker">FACEBOOK TRACKING</p>
+            <h1 className="sidebar-title">Tinh bao van hanh fanpage doi thu</h1>
+            <p className="sidebar-copy">
+              Quan sat alert, leaderboard va dong bo feed trong mot khung tac nghiep.
+            </p>
+          </div>
+
+          <nav className="sidebar-nav" aria-label="Dieu huong chinh">
+            <a className="nav-item nav-item-active" href="/">
+              <span>Tong quan</span>
+              <strong>09 alert mo</strong>
+            </a>
+            <a className="nav-item" href="/">
+              <span>Tracked pages</span>
+              <strong>24 page</strong>
+            </a>
+            <a className="nav-item" href="/">
+              <span>Activity timeline</span>
+              <strong>17 su kien moi</strong>
+            </a>
+            <a className="nav-item" href="/">
+              <span>Alert center</span>
+              <strong>2 critical</strong>
+            </a>
+          </nav>
         </div>
 
-        <nav className="sidebar-nav" aria-label="Dieu huong chinh">
-          <a className="nav-item nav-item-active" href="/">
-            Tong quan
-          </a>
-          <a className="nav-item" href="/">
-            Tracked pages
-          </a>
-          <a className="nav-item" href="/">
-            Activity timeline
-          </a>
-          <a className="nav-item" href="/">
-            Alert center
-          </a>
-        </nav>
+        <div className="sidebar-stack">
+          <article className="sidebar-card">
+            <span className="mono-label">Coverage</span>
+            <strong>24 / 30 page dang on dinh</strong>
+            <p>Can uu tien khoi phuc 2 critical source truoc 11:00.</p>
+          </article>
 
-        <div className="sidebar-card">
-          <span className="mono-label">Coverage</span>
-          <strong>24 / 30 page dang on dinh</strong>
-          <p>Can uu tien khoi phuc 2 critical source truoc 11:00.</p>
+          <article className="sidebar-card sidebar-card-ghost">
+            <span className="mono-label">Focus block</span>
+            <strong>Khung gio 10:00 - 12:00</strong>
+            <p>Canh bao livestream va bien dong reach se duoc day len dau feed.</p>
+          </article>
         </div>
       </aside>
 
       <section className="workspace">
         <header className="topbar">
-          <div>
-            <p className="eyebrow">Overview Dashboard</p>
-            <h2>Ban dieu khien tracking ca sang</h2>
+          <div className="topbar-copy">
+            <div>
+              <p className="eyebrow">Overview Dashboard</p>
+              <h2>Ban dieu khien tracking ca sang</h2>
+            </div>
+            <p className="topbar-summary">
+              He thong dang uu tien 2 canh bao critical va 1 page tam dung do token can gia han.
+            </p>
           </div>
 
           <div className="topbar-actions">
-            <div className="search-box">Tim page, nguon, alert...</div>
+            <label className="search-box" htmlFor="page-search">
+              <span className="search-icon" aria-hidden="true">
+                ?
+              </span>
+              <input
+                defaultValue=""
+                id="page-search"
+                name="page-search"
+                placeholder="Tim page, nguon, alert..."
+                type="search"
+              />
+            </label>
             <button className="secondary-button" type="button">
               24h qua
             </button>
@@ -169,8 +262,18 @@ export default function HomePage() {
           </div>
         </header>
 
+        <section className="status-band" aria-label="Trang thai van hanh">
+          {summaryCards.map((item) => (
+            <article className="status-card" key={item.label}>
+              <span className="stat-label">{item.label}</span>
+              <strong>{item.value}</strong>
+              <p>{item.note}</p>
+            </article>
+          ))}
+        </section>
+
         <section className="stats-grid" aria-label="Thong ke tong quan">
-          {metrics.map((metric) => (
+          {primaryMetrics.map((metric) => (
             <article className="stat-card" key={metric.label}>
               <span className="stat-label">{metric.label}</span>
               <strong className="stat-value">{metric.value}</strong>
@@ -181,7 +284,7 @@ export default function HomePage() {
         </section>
 
         <section className="content-grid">
-          <article className="panel panel-wide">
+          <article className="panel panel-wide panel-table">
             <div className="panel-heading">
               <div>
                 <p className="panel-kicker">Tracked Pages</p>
@@ -203,6 +306,7 @@ export default function HomePage() {
                     <th>Trang thai</th>
                     <th>Bai moi 24h</th>
                     <th>Tuong tac uoc tinh</th>
+                    <th>Lan cap nhat cuoi</th>
                     <th>Alert gan nhat</th>
                   </tr>
                 </thead>
@@ -222,6 +326,7 @@ export default function HomePage() {
                       </td>
                       <td>{page.posts24h}</td>
                       <td>{page.engagement}</td>
+                      <td className="mono-copy">{page.updatedAt}</td>
                       <td>{page.alert}</td>
                     </tr>
                   ))}
@@ -230,23 +335,25 @@ export default function HomePage() {
             </div>
           </article>
 
-          <article className="panel panel-stack">
+          <article className="panel panel-aside">
             <div className="panel-heading">
               <div>
-                <p className="panel-kicker">Alert Feed</p>
-                <h3>Feed canh bao uu tien</h3>
+                <p className="panel-kicker">Leadboard</p>
+                <h3>Trang can follow-up</h3>
               </div>
             </div>
 
-            <div className="alert-list">
-              {alerts.map((alert) => (
-                <article className={`alert-card ${alert.level}`} key={alert.title}>
-                  <span className="mono-label">{alert.level}</span>
-                  <strong>{alert.title}</strong>
-                  <p>{alert.reason}</p>
-                  <button className="ghost-button" type="button">
-                    {alert.action}
-                  </button>
+            <div className="lead-list">
+              {hotLeads.map((lead) => (
+                <article className="lead-card" key={lead.page}>
+                  <div>
+                    <strong>{lead.page}</strong>
+                    <p>{lead.reason}</p>
+                  </div>
+                  <div className="lead-meta">
+                    <span className="mono-label">{lead.owner}</span>
+                    <span className="chip chip-active">{lead.priority}</span>
+                  </div>
                 </article>
               ))}
             </div>
@@ -258,6 +365,9 @@ export default function HomePage() {
                 <p className="panel-kicker">Activity Timeline</p>
                 <h3>Bien dong gan day</h3>
               </div>
+              <button className="ghost-button" type="button">
+                Xem log chi tiet
+              </button>
             </div>
 
             <div className="timeline-list">
@@ -272,6 +382,28 @@ export default function HomePage() {
                     <p>{item.event}</p>
                   </div>
                   <span className="timeline-delta">{item.delta}</span>
+                </article>
+              ))}
+            </div>
+          </article>
+
+          <article className="panel panel-aside">
+            <div className="panel-heading">
+              <div>
+                <p className="panel-kicker">Alert Feed</p>
+                <h3>Feed canh bao uu tien</h3>
+              </div>
+            </div>
+
+            <div className="alert-list">
+              {alerts.map((alert) => (
+                <article className={`alert-card ${alertTone[alert.level]}`} key={alert.title}>
+                  <span className="mono-label">{alert.level}</span>
+                  <strong>{alert.title}</strong>
+                  <p>{alert.reason}</p>
+                  <button className="ghost-button" type="button">
+                    {alert.action}
+                  </button>
                 </article>
               ))}
             </div>
