@@ -8,6 +8,8 @@ export interface AppConfig {
   appEnv: string;
   pagePollIntervalMinutes: number;
   appVersion: string;
+  redisUrl: string;
+  monitorQueueName: string;
   adminUsername: string;
   adminPasswordHash: string;
   jwtSecret: string;
@@ -46,6 +48,8 @@ export function createAppConfig(): AppConfig {
     appEnv: process.env.APP_ENV?.trim() || "development",
     pagePollIntervalMinutes: readPositiveInteger(process.env.PAGE_POLL_INTERVAL_MINUTES, 15),
     appVersion: readPackageVersion(),
+    redisUrl: readString(process.env.REDIS_URL, "redis://127.0.0.1:6379"),
+    monitorQueueName: readString(process.env.MONITOR_QUEUE_NAME, "monitor-jobs"),
     adminUsername: readString(process.env.ADMIN_USERNAME),
     adminPasswordHash: readString(process.env.ADMIN_PASSWORD_HASH),
     jwtSecret: readString(process.env.JWT_SECRET),

@@ -5,6 +5,7 @@
 - `Source`: fanpage dang theo doi, gom `pageSlug`, `pageName`, trang thai bat/tat, co quet realtime hay khong va dich Telegram.
 - `Auth`: admin dang nhap bang username + password hash tu env, nhan JWT Bearer token.
 - `Telegram test`: endpoint gui tin nhan thu den dich Telegram de xac thuc kenh canh bao.
+- `Scan job`: yeu cau API tao ban ghi `jobs` va day mot tac vu vao Redis/BullMQ de worker xu ly bat dong bo.
 
 ## Endpoint Inventory
 
@@ -16,6 +17,7 @@
 | `POST` | `/v1/sources` | Tao source moi | Bearer JWT |
 | `PATCH` | `/v1/sources/:id` | Cap nhat source | Bearer JWT |
 | `DELETE` | `/v1/sources/:id` | Xoa source | Bearer JWT |
+| `POST` | `/v1/jobs/scan` | Enqueue mot scan job cho source va tra ve queue metadata | Bearer JWT |
 | `POST` | `/v1/integrations/telegram/test` | Gui test message qua Telegram Bot API | Bearer JWT |
 
 ## Authentication Strategy
@@ -52,3 +54,10 @@
 
 - `GET /v1/sources` dung `offset` va `limit`.
 - Mac dinh `offset=0`, `limit=20`, gioi han toi da `100`.
+
+## Queue Contract
+
+- `POST /v1/jobs/scan` nhan body `{ "sourceId": number, "jobType"?: "REALTIME_SCAN" | "SCAN_LAST10" | "DAILY_REPORT" }`.
+- API tao ban ghi `jobs` voi `status=PENDING`, sau do enqueue qua `MONITOR_QUEUE_NAME` tren `REDIS_URL`.
+- Worker cap nhat job sang `RUNNING`, sau cung danh dau `COMPLETED` hoac `FAILED` de dashboard co the doc lai lich su.
+- Scheduler phia API tu dong quet cac source `enabled=true` va `realtimeScanEnabled=true` theo `PAGE_POLL_INTERVAL_MINUTES`.

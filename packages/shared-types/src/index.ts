@@ -2,6 +2,15 @@ export type JobType = "REALTIME_SCAN" | "SCAN_LAST10" | "DAILY_REPORT";
 
 export type JobStatus = "PENDING" | "RUNNING" | "COMPLETED" | "FAILED";
 
+export const MONITOR_QUEUE_NAME = "monitor-jobs";
+
+export interface MonitorJobPayload {
+  sourceId: number;
+  jobId: number;
+  jobType: JobType;
+  triggeredBy: "manual" | "scheduler";
+}
+
 export interface SourceJob {
   id: number;
   type: JobType;
@@ -69,4 +78,19 @@ export interface HealthResponse {
   uptimeSeconds: number;
   trackedPagesConfigured: number;
   timestamp: string;
+}
+
+export interface EnqueueScanJobInput {
+  sourceId: number;
+  jobType?: JobType;
+}
+
+export interface EnqueueScanJobResponse {
+  queueName: string;
+  queueJobId: string;
+  recordId: number;
+  sourceId: number;
+  type: JobType;
+  triggeredBy: "manual" | "scheduler";
+  status: JobStatus;
 }
