@@ -8,6 +8,12 @@ export interface AppConfig {
   appEnv: string;
   pagePollIntervalMinutes: number;
   appVersion: string;
+  adminUsername: string;
+  adminPasswordHash: string;
+  jwtSecret: string;
+  jwtExpiresIn: string;
+  telegramBotToken: string;
+  telegramDefaultChatId: string;
 }
 
 function readPositiveInteger(value: string | undefined, fallback: number) {
@@ -28,6 +34,10 @@ function readPackageVersion() {
   return process.env.npm_package_version ?? "0.1.0";
 }
 
+function readString(value: string | undefined, fallback = "") {
+  return value?.trim() ?? fallback;
+}
+
 export function createAppConfig(): AppConfig {
   loadEnv();
 
@@ -35,7 +45,13 @@ export function createAppConfig(): AppConfig {
     apiPort: readPositiveInteger(process.env.API_PORT, 3001),
     appEnv: process.env.APP_ENV?.trim() || "development",
     pagePollIntervalMinutes: readPositiveInteger(process.env.PAGE_POLL_INTERVAL_MINUTES, 15),
-    appVersion: readPackageVersion()
+    appVersion: readPackageVersion(),
+    adminUsername: readString(process.env.ADMIN_USERNAME),
+    adminPasswordHash: readString(process.env.ADMIN_PASSWORD_HASH),
+    jwtSecret: readString(process.env.JWT_SECRET),
+    jwtExpiresIn: readString(process.env.JWT_EXPIRES_IN, "8h"),
+    telegramBotToken: readString(process.env.TELEGRAM_BOT_TOKEN),
+    telegramDefaultChatId: readString(process.env.TELEGRAM_DEFAULT_CHAT_ID)
   };
 }
 

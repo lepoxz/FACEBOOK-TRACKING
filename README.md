@@ -62,14 +62,35 @@ PORT=3101 pnpm dev:web
 
 - `GET /health`: smoke endpoint tra ve runtime status, env, version va so tracked page seed.
 - `GET /v1/pages`: danh sach `sources` doc truc tiep tu PostgreSQL, kem job va Google Sheet moi nhat.
+- `POST /v1/admin/auth/login`: dang nhap admin bang env hash va nhan JWT.
+- `GET/POST/PATCH/DELETE /v1/sources`: CRUD source cho pha setup tracking.
+- `POST /v1/integrations/telegram/test`: gui tin nhan test qua Telegram Bot API.
 - Env co su phan tach `APP_ENV`, `API_PORT`, `PAGE_POLL_INTERVAL_MINUTES`, `DATABASE_URL` de chuan hoa local config som.
 - Database local mac dinh dung PostgreSQL trong `infra/docker/docker-compose.yml`.
 - Neu dung database remote da co migration folder, uu tien `pnpm db:deploy`; chi dung `pnpm db:push` khi can dong bo schema nhanh cho moi truong throwaway.
+
+## Cau hinh auth admin
+
+API Phase 1 can them:
+
+```bash
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD_HASH=<bcrypt-hash>
+JWT_SECRET=<secret-dai-va-kho-doan>
+JWT_EXPIRES_IN=8h
+```
+
+Tao hash nhanh:
+
+```bash
+node -e "import('bcryptjs').then(async ({hash}) => console.log(await hash('doi-mat-khau-manh', 10)))"
+```
 
 ## Tai lieu
 
 - `docs/TECH-STACK.md`
 - `docs/ARCHITECTURE.md`
+- `docs/API-DESIGN.md`
 
 ## Trang thai
 

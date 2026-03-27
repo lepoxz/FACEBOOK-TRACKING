@@ -37,6 +37,30 @@ export interface TrackedPagesResponse {
   total: number;
 }
 
+export interface SourceListResponse {
+  items: Array<{
+    id: number;
+    pageSlug: string;
+    pageName: string;
+    enabled: boolean;
+    realtimeScanEnabled: boolean;
+    telegramTarget: string | null;
+    createdAt: string;
+    updatedAt: string;
+  }>;
+  pagination: {
+    offset: number;
+    limit: number;
+    total: number;
+  };
+}
+
+export interface AdminLoginResponse {
+  accessToken: string;
+  tokenType: "Bearer";
+  expiresIn: string;
+}
+
 export interface HealthResponse {
   status: "ok";
   service: string;
