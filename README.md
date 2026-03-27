@@ -33,7 +33,7 @@ Monorepo khoi tao cho web app theo doi hoat dong cong khai cua fanpage Facebook 
 pnpm install
 cp .env.example .env
 pnpm db:start
-pnpm db:push
+pnpm db:deploy
 pnpm db:seed
 pnpm dev
 ```
@@ -64,6 +64,7 @@ PORT=3101 pnpm dev:web
 - `GET /v1/pages`: danh sach `sources` doc truc tiep tu PostgreSQL, kem job va Google Sheet moi nhat.
 - Env co su phan tach `APP_ENV`, `API_PORT`, `PAGE_POLL_INTERVAL_MINUTES`, `DATABASE_URL` de chuan hoa local config som.
 - Database local mac dinh dung PostgreSQL trong `infra/docker/docker-compose.yml`.
+- Neu dung database remote da co migration folder, uu tien `pnpm db:deploy`; chi dung `pnpm db:push` khi can dong bo schema nhanh cho moi truong throwaway.
 
 ## Tai lieu
 

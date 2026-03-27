@@ -9,6 +9,7 @@
     "dev:api": "pnpm --filter api dev",
     "dev:worker": "pnpm --filter worker dev",
     "db:start": "docker compose -f infra/docker/docker-compose.yml up -d postgres",
+    "db:deploy": "prisma migrate deploy",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:seed": "node prisma/seed.mjs",
