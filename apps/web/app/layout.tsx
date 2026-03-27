@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans, Sora } from "next/font/google";
+import { Be_Vietnam_Pro, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const sora = Sora({
-  subsets: ["latin"],
+const beVietnamProHeading = Be_Vietnam_Pro({
+  subsets: ["latin-ext", "vietnamese"],
+  weight: ["600", "700"],
   variable: "--font-heading"
 });
 
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
+const beVietnamProBody = Be_Vietnam_Pro({
+  subsets: ["latin-ext", "vietnamese"],
   weight: ["400", "500", "600"],
   variable: "--font-body"
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
+  subsets: ["latin-ext", "vietnamese"],
   weight: ["500"],
   variable: "--font-mono"
 });
 
 export const metadata: Metadata = {
-  title: "Facebook Tracking",
-  description: "Dashboard tactical theo doi fanpage doi thu va canh bao van hanh."
+  title: "Theo Dõi Facebook",
+  description: "Bảng điều khiển theo dõi fanpage đối thủ và cảnh báo vận hành."
 };
 
 export default function RootLayout({
@@ -30,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body
-        className={`${sora.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable}`}
+        className={`${beVietnamProHeading.variable} ${beVietnamProBody.variable} ${ibmPlexMono.variable}`}
       >
         {children}
       </body>

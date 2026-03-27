@@ -3,115 +3,115 @@ type AlertLevel = "critical" | "warning" | "info";
 
 const primaryMetrics = [
   {
-    label: "So page dang theo doi",
+    label: "Số trang đang theo dõi",
     value: "24",
-    delta: "+3 page",
-    note: "Cap nhat luc 09:20"
+    delta: "+3 trang",
+    note: "Cập nhật lúc 09:20"
   },
   {
-    label: "Bai dang moi 24h",
+    label: "Bài đăng mới 24 giờ",
     value: "87",
     delta: "+18%",
-    note: "So voi trung binh 7 ngay"
+    note: "So với trung bình 7 ngày"
   },
   {
-    label: "Livestream dang dien ra",
+    label: "Livestream đang diễn ra",
     value: "5",
-    delta: "+2 kenh",
-    note: "Can theo doi trong 30 phut toi"
+    delta: "+2 kênh",
+    note: "Cần theo dõi trong 30 phút tới"
   },
   {
-    label: "Alert can xu ly",
+    label: "Cảnh báo cần xử lý",
     value: "9",
     delta: "2 critical",
-    note: "Uu tien feed ben phai"
+    note: "Ưu tiên bảng cảnh báo bên phải"
   }
 ];
 
 const summaryCards = [
   {
-    label: "Do phu thu thap",
+    label: "Độ phủ thu thập",
     value: "80%",
-    note: "24 / 30 page da dong bo du du lieu"
+    note: "24 / 30 trang đã đồng bộ đủ dữ liệu"
   },
   {
-    label: "Nguon can xu ly",
+    label: "Nguồn cần xử lý",
     value: "02",
-    note: "1 crawl cham, 1 token can gia han"
+    note: "1 nguồn crawl chậm, 1 token cần gia hạn"
   },
   {
-    label: "Khung gio nong",
+    label: "Khung giờ nóng",
     value: "10:00",
-    note: "My pham va noi that dang tang toc"
+    note: "Mỹ phẩm và nội thất đang tăng tốc"
   }
 ];
 
 const hotPages = [
   {
     name: "Miu Beauty Official",
-    category: "My pham",
+    category: "Mỹ phẩm",
     status: "tracking" as PageStatus,
     posts24h: 12,
     engagement: "154K",
-    updatedAt: "3 phut truoc",
-    alert: "Tang reach 68%"
+    updatedAt: "3 phút trước",
+    alert: "Tăng reach 68%"
   },
   {
     name: "Nha Xinh Decor",
-    category: "Noi that",
+    category: "Nội thất",
     status: "warning" as PageStatus,
     posts24h: 4,
     engagement: "38K",
-    updatedAt: "8 phut truoc",
-    alert: "Livestream bat ngo luc 08:40"
+    updatedAt: "8 phút trước",
+    alert: "Livestream bất ngờ lúc 08:40"
   },
   {
     name: "Fit Mom Daily",
-    category: "Lifestyle",
+    category: "Đời sống",
     status: "tracking" as PageStatus,
     posts24h: 7,
     engagement: "91K",
-    updatedAt: "12 phut truoc",
-    alert: "3 reel moi trong 6 gio"
+    updatedAt: "12 phút trước",
+    alert: "3 reel mới trong 6 giờ"
   },
   {
     name: "Pet House Viet",
-    category: "Thu cung",
+    category: "Thú cưng",
     status: "critical" as PageStatus,
     posts24h: 2,
     engagement: "12K",
-    updatedAt: "17 phut truoc",
-    alert: "Nguon crawl cham 17 phut"
+    updatedAt: "17 phút trước",
+    alert: "Nguồn crawl chậm 17 phút"
   },
   {
     name: "Cafe Nha Pho",
-    category: "F&B",
+    category: "Ẩm thực",
     status: "paused" as PageStatus,
     posts24h: 1,
     engagement: "7K",
-    updatedAt: "41 phut truoc",
-    alert: "Dang doi access token moi"
+    updatedAt: "41 phút trước",
+    alert: "Đang đợi access token mới"
   }
 ];
 
 const hotLeads = [
   {
     page: "Miu Beauty Official",
-    reason: "2 video moi dang vuot benchmark 7 ngay",
+    reason: "2 video mới đang vượt benchmark 7 ngày",
     owner: "Ads team",
-    priority: "Theo doi sat"
+    priority: "Theo dõi sát"
   },
   {
     page: "Nha Xinh Decor",
-    reason: "Livestream dot xuat trong gio hanh chinh",
+    reason: "Livestream đột xuất trong giờ hành chính",
     owner: "Content ops",
-    priority: "Cap nhat script sales"
+    priority: "Cập nhật script sales"
   },
   {
     page: "Fit Mom Daily",
-    reason: "Tan suat reel tang truoc khung 11:00",
+    reason: "Tần suất reel tăng trước khung 11:00",
     owner: "Research",
-    priority: "Bo sung keyword watch"
+    priority: "Bổ sung keyword watch"
   }
 ];
 
@@ -119,51 +119,51 @@ const timelineItems = [
   {
     rail: "teal",
     page: "Miu Beauty Official",
-    event: "Dang 2 video review serum moi",
+    event: "Đăng 2 video review serum mới",
     time: "09:12",
     delta: "+42% comment"
   },
   {
     rail: "amber",
     page: "Nha Xinh Decor",
-    event: "Bat livestream flash sale 45 phut",
+    event: "Bật livestream flash sale 45 phút",
     time: "08:40",
     delta: "+1.8x viewer"
   },
   {
     rail: "red",
     page: "Pet House Viet",
-    event: "Khoang trong du lieu vuot nguong canh bao",
+    event: "Khoảng trống dữ liệu vượt ngưỡng cảnh báo",
     time: "08:26",
-    delta: "17 phut mat dong bo"
+    delta: "17 phút mất đồng bộ"
   },
   {
     rail: "teal",
     page: "Fit Mom Daily",
-    event: "Them post album truoc khung gio ban hang",
+    event: "Thêm post album trước khung giờ bán hàng",
     time: "07:55",
-    delta: "+6 bai/24h"
+    delta: "+6 bài/24 giờ"
   }
 ];
 
 const alerts = [
   {
     level: "critical" as AlertLevel,
-    title: "Pet House Viet can kiem tra pipeline crawl",
-    reason: "Khong co event moi du page dang co traffic cao.",
-    action: "Mo runbook ingestion"
+    title: "Pet House Viet cần kiểm tra pipeline crawl",
+    reason: "Không có event mới dù trang đang có traffic cao.",
+    action: "Mở runbook ingestion"
   },
   {
     level: "warning" as AlertLevel,
-    title: "Nha Xinh Decor dang livestream bat thuong",
-    reason: "Bat dau som hon lich thong thuong 90 phut.",
-    action: "Gan the theo doi sat"
+    title: "Nha Xinh Decor đang livestream bất thường",
+    reason: "Bắt đầu sớm hơn lịch thông thường 90 phút.",
+    action: "Gắn thẻ theo dõi sát"
   },
   {
     level: "info" as AlertLevel,
-    title: "Da them 3 page moi vao watchlist trong ca sang",
-    reason: "Nguon tu team research da xac nhan public.",
-    action: "Kiem tra thiet lap"
+    title: "Đã thêm 3 trang mới vào watchlist trong cả sáng",
+    reason: "Nguồn từ team research đã xác nhận public.",
+    action: "Kiểm tra thiết lập"
   }
 ];
 
@@ -180,34 +180,48 @@ const alertTone = {
   info: "info"
 } as const;
 
+const statusLabel: Record<PageStatus, string> = {
+  tracking: "Đang theo dõi",
+  warning: "Cần chú ý",
+  critical: "Nghiêm trọng",
+  paused: "Tạm dừng"
+};
+
+const alertLabel: Record<AlertLevel, string> = {
+  critical: "Nghiêm trọng",
+  warning: "Cảnh báo",
+  info: "Thông tin"
+};
+
 export default function HomePage() {
   return (
     <main className="dashboard-shell">
       <aside className="sidebar">
         <div className="sidebar-main">
           <div>
-            <p className="sidebar-kicker">FACEBOOK TRACKING</p>
-            <h1 className="sidebar-title">Tinh bao van hanh fanpage doi thu</h1>
+            <p className="sidebar-kicker">THEO DÕI FACEBOOK</p>
+            <h1 className="sidebar-title">Trung tâm tình báo vận hành fanpage đối thủ</h1>
             <p className="sidebar-copy">
-              Quan sat alert, leaderboard va dong bo feed trong mot khung tac nghiep.
+              Quan sát cảnh báo, bảng ưu tiên và luồng đồng bộ trong một màn hình tác
+              chiến.
             </p>
           </div>
 
-          <nav className="sidebar-nav" aria-label="Dieu huong chinh">
+          <nav className="sidebar-nav" aria-label="Điều hướng chính">
             <a className="nav-item nav-item-active" href="/">
-              <span>Tong quan</span>
-              <strong>09 alert mo</strong>
+              <span>Tổng quan</span>
+              <strong>09 cảnh báo mở</strong>
             </a>
             <a className="nav-item" href="/">
-              <span>Tracked pages</span>
-              <strong>24 page</strong>
+              <span>Trang đang theo dõi</span>
+              <strong>24 trang</strong>
             </a>
             <a className="nav-item" href="/">
-              <span>Activity timeline</span>
-              <strong>17 su kien moi</strong>
+              <span>Dòng sự kiện</span>
+              <strong>17 sự kiện mới</strong>
             </a>
             <a className="nav-item" href="/">
-              <span>Alert center</span>
+              <span>Trung tâm cảnh báo</span>
               <strong>2 critical</strong>
             </a>
           </nav>
@@ -215,15 +229,15 @@ export default function HomePage() {
 
         <div className="sidebar-stack">
           <article className="sidebar-card">
-            <span className="mono-label">Coverage</span>
-            <strong>24 / 30 page dang on dinh</strong>
-            <p>Can uu tien khoi phuc 2 critical source truoc 11:00.</p>
+            <span className="mono-label">Độ phủ</span>
+            <strong>24 / 30 trang đang ổn định</strong>
+            <p>Cần ưu tiên khôi phục 2 nguồn nghiêm trọng trước 11:00.</p>
           </article>
 
           <article className="sidebar-card sidebar-card-ghost">
-            <span className="mono-label">Focus block</span>
-            <strong>Khung gio 10:00 - 12:00</strong>
-            <p>Canh bao livestream va bien dong reach se duoc day len dau feed.</p>
+            <span className="mono-label">Khung tập trung</span>
+            <strong>10:00 - 12:00</strong>
+            <p>Cảnh báo livestream và biến động reach sẽ được đẩy lên đầu feed.</p>
           </article>
         </div>
       </aside>
@@ -232,11 +246,12 @@ export default function HomePage() {
         <header className="topbar">
           <div className="topbar-copy">
             <div>
-              <p className="eyebrow">Overview Dashboard</p>
-              <h2>Ban dieu khien tracking ca sang</h2>
+              <p className="eyebrow">Bảng điều khiển tổng quan</p>
+              <h2>Bảng điều khiển theo dõi ca sáng</h2>
             </div>
             <p className="topbar-summary">
-              He thong dang uu tien 2 canh bao critical va 1 page tam dung do token can gia han.
+              Hệ thống đang ưu tiên 2 cảnh báo nghiêm trọng và 1 trang tạm dừng do token
+              cần gia hạn.
             </p>
           </div>
 
@@ -249,20 +264,20 @@ export default function HomePage() {
                 defaultValue=""
                 id="page-search"
                 name="page-search"
-                placeholder="Tim page, nguon, alert..."
+                placeholder="Tìm trang, nguồn, cảnh báo..."
                 type="search"
               />
             </label>
             <button className="secondary-button" type="button">
-              24h qua
+              24 giờ qua
             </button>
             <button className="primary-button" type="button">
-              Them page theo doi
+              Thêm trang theo dõi
             </button>
           </div>
         </header>
 
-        <section className="status-band" aria-label="Trang thai van hanh">
+        <section className="status-band" aria-label="Trạng thái vận hành">
           {summaryCards.map((item) => (
             <article className="status-card" key={item.label}>
               <span className="stat-label">{item.label}</span>
@@ -272,7 +287,7 @@ export default function HomePage() {
           ))}
         </section>
 
-        <section className="stats-grid" aria-label="Thong ke tong quan">
+        <section className="stats-grid" aria-label="Thống kê tổng quan">
           {primaryMetrics.map((metric) => (
             <article className="stat-card" key={metric.label}>
               <span className="stat-label">{metric.label}</span>
@@ -287,14 +302,14 @@ export default function HomePage() {
           <article className="panel panel-wide panel-table">
             <div className="panel-heading">
               <div>
-                <p className="panel-kicker">Tracked Pages</p>
-                <h3>Hot pages can xem ngay</h3>
+                <p className="panel-kicker">Các trang theo dõi</p>
+                <h3>Trang nóng cần xem ngay</h3>
               </div>
               <div className="chip-row">
-                <span className="chip chip-active">Tat ca</span>
-                <span className="chip">Co alert</span>
-                <span className="chip">Dang livestream</span>
-                <span className="chip">It hoat dong</span>
+                <span className="chip chip-active">Tất cả</span>
+                <span className="chip">Có cảnh báo</span>
+                <span className="chip">Đang livestream</span>
+                <span className="chip">Ít hoạt động</span>
               </div>
             </div>
 
@@ -321,7 +336,7 @@ export default function HomePage() {
                       </td>
                       <td>
                         <span className={`status-pill ${statusTone[page.status]}`}>
-                          {page.status}
+                          {statusLabel[page.status]}
                         </span>
                       </td>
                       <td>{page.posts24h}</td>
@@ -338,8 +353,8 @@ export default function HomePage() {
           <article className="panel panel-aside">
             <div className="panel-heading">
               <div>
-                <p className="panel-kicker">Leadboard</p>
-                <h3>Trang can follow-up</h3>
+                <p className="panel-kicker">Bảng ưu tiên</p>
+                <h3>Trang cần theo sát</h3>
               </div>
             </div>
 
@@ -362,11 +377,11 @@ export default function HomePage() {
           <article className="panel panel-wide">
             <div className="panel-heading">
               <div>
-                <p className="panel-kicker">Activity Timeline</p>
-                <h3>Bien dong gan day</h3>
+                <p className="panel-kicker">Dòng sự kiện</p>
+                <h3>Biến động gần đây</h3>
               </div>
               <button className="ghost-button" type="button">
-                Xem log chi tiet
+                Xem log chi tiết
               </button>
             </div>
 
@@ -390,15 +405,15 @@ export default function HomePage() {
           <article className="panel panel-aside">
             <div className="panel-heading">
               <div>
-                <p className="panel-kicker">Alert Feed</p>
-                <h3>Feed canh bao uu tien</h3>
+                <p className="panel-kicker">Luồng cảnh báo</p>
+                <h3>Bảng cảnh báo ưu tiên</h3>
               </div>
             </div>
 
             <div className="alert-list">
               {alerts.map((alert) => (
                 <article className={`alert-card ${alertTone[alert.level]}`} key={alert.title}>
-                  <span className="mono-label">{alert.level}</span>
+                  <span className="mono-label">{alertLabel[alert.level]}</span>
                   <strong>{alert.title}</strong>
                   <p>{alert.reason}</p>
                   <button className="ghost-button" type="button">
