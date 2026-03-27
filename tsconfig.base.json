@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@facebook-tracking/shared-types": [
+        "packages/shared-types/src/index.ts"
+      ],
+      "@facebook-tracking/shared-utils": [
+        "packages/shared-utils/src/index.ts"
+      ]
+    }
+  }
+}
